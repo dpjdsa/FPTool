@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+        <meta charset="UTF-8">
+        <title>Financial Planning Tool</title>
+        <!-- This HTML file allows the user to input details of their 
+        Income
+
+        Assets
+        and then provides charts and recommendations
+
+        Dino D'Sa 11th December 2016
+        
+        Link to CSS and jquery DatePicker-->
+        <link rel="stylesheet" href="css/dinostyletabbedv2.css" />
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+          $( function() {
+           $( ".dateinpc" ).datepicker({dateFormat:"d-M-yy",changeYear:true,changeMonth:true,yearRange:"2017:2050"});
+          });
+          $( function() {
+           $( ".dateinp" ).datepicker({dateFormat:"d-M-yy",changeYear:true,changeMonth:true,yearRange:"2017:2050"});
+          });
+         </script>
+    </head>
+    <!-- Main body of page-->
+    <body>
+        <header>
+        <h2>Financial Planning Tool</h2>
+        <h3>Please enter your financial details</h3>
+        </header>
+        <main>
+            <!-- Personal Details - gender, age and retirement age-->
+            <div class="tabs">
+                <div class="tab">
+                    <input type="radio" id="tab-1" name="tab-group-1" checked>
+                    <label for="tab-1"><strong>Personal Details</strong></label>
+                    <div class="content">
+                       <form>
+                        <h3>Take the first steps to financial freedom</h3>
+                        <ul>
+                        <li>The UK has been suffering from gradual financialisation.</li>
+                        <li>This means the financially less-aware will lose out.</li>
+                        <li>Become financially-savvy so you can control your money and your choices rather than it controlling you.</li>
+                        <li>Try to avoid all debt apart from student loan(s) and/or a mortgage.</li>
+                        <li>Work to control your expenditure so it is less than your income each month and start to save.</li>
+                        <li>Make a weekly budget, take out the cash to meet it then stick to it and settle it in cash.</li>
+                        <li>Make contributions to a pension whenever possible (the state will not provide sufficient for your retirement).</li>
+                        <li>Build up your capital and take control of your future</li>
+                        </ul>
+                         <fieldset>
+                            <legend><strong>Input Personal Details</strong></legend>
+                           <label>Number in Household:&nbsp;</label>
+                            <input class="inpboxs" type="number" id="Nhhbox" min="1" max="9" value="1" oninput="changeNhh(this.value)"><br><br>    
+                        </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="tab" onclick="initialiseRet()">
+                    <input type="radio" id="tab-5" name="tab-group-1">
+                    <label for="tab-5"><strong>&emsp;&emsp;Assumptions&emsp;&emsp;</strong></label>
+                    <div class="content">
+                <form>
+                    <h3> It is important to understand the return savings can generate relative to inflation</h3>
+                    <ul>
+                    <li> Generally cash savings do not beat inflation. If you want higher returns you have to be prepared to take some risk.</li>
+                    <li> Bonds (corporate and government) may provide some return for additional risk but equities (shares) provide the highest reward but also the highest risk.</li><br>
+                    <fieldset>
+                        <legend><strong>Input Assumptions</strong></legend><br><br>
+                <label>Annual Inflation:</label><input class="aprbox" type="number" id="CPI" min="-0.5" max="9.9" step="0.1" value="2.0" oninput="changeCPI(this.value)"><span class="pct">%</span>- rate at which prices are rising<br>
+                <label>Cash Savings: Inflation+:</label><input class="aprbox" type="number" id="CashRet" min="-2.0" max="9.9" step="0.1" value="-1.0" oninput="changeCashRet(this.value)">
+                <span class="pct">%</span>=<span id="Cashact" class="aprbox"></span>&nbsp;&nbsp;&nbsp; - what a cash savings account typically pays.<br>
+                <label>Bond Returns: Inflation+:</label><input class="aprbox" type="number" id="BondRet" min="-0.5" max="9.9" step="0.1" value="2.0"oninput="changeBondRet(this.value)">
+                <span class="pct">%</span>=<span id="Bondact" class="aprbox"></span>&nbsp;&nbsp;&nbsp; - what bond investments might achieve.<br>
+                <label>Share Returns: Inflation+:</label><input class="aprbox" type="number" id="ShareRet" min="-0.5" max="9.9" step="0.1" value="3.0" oninput="changeShareRet(this.value)">
+                <span class="pct">%</span>=<span id="Shareact" class="aprbox"></span>&nbsp;&nbsp;&nbsp; - what share investments might achieve.<br><br>
+                <label>Full State Pension pa:&nbsp;</label>&nbsp;&nbsp;<input class="inpbox" type="number" id="SPValue" min="0" max="10000" step="100" value="9340"><span class="poundl">&pound;</span>
+                currently paid at age:&nbsp;<span id="Spagebox"></span>          
+                    </fieldset>
+                 </form>
+                    </div>
+                </div>
+                <!-- Sources of income from employment, pensions and/or benefits-->
+                <div class="tab">
+                    <input type="radio" id="tab-2" name="tab-group-1">
+                    <label for="tab-2"><strong>&emsp;&emsp;Income&emsp;&emsp;</strong></label>
+                    <div class="content">
+                <form>
+                    <h3> It is important to maximise your income</h3>
+                    <ul>
+                    <li> The more income you have the more choices you have available to you and the more opportunity you have to insure your future.</li>
+                    <li> Be aware that once you depend on benefits you are subject to the whims of the DWP and you might be caught in the "benefits trap" where every extra pound you earn reduces your benefits.</li><br> 
+                    <fieldset>
+                        <legend><strong>Input Monthly Income</strong></legend>
+                        <strong>Total Monthly Income: &pound;<span id="Tmebox"></span></strong><br><br>
+                <input type="checkbox" id="inEmp" checked="checked" onchange="changeEe(Ee.value)"><label>Employment:</label>
+                <input class="inpbox" type="number" id="Eebox" min="0" max="3000" value="1500" oninput="changeEe(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id="Ee" min="0" max="3000" step="5" oninput="changeEe(this.value)"><br>
+                <input type="checkbox" id="recPen" checked="checked" onchange="changePe(Pe.value)"><label>Pension:</label>
+                <input class="inpbox" type="number" id="Pebox" min="0" max="2000" value="500" oninput="changePe(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id="Pe" min="0" max="2000" step="5" oninput="changePe(this.value)"><br>
+                <input type="checkbox" id="recBen" checked="checked" onchange="changeBe(Be.value)"><label>Benefits:</label>
+                <input class="inpbox" type="number" id="Bebox" min="0" max="1000" value="500" oninput="changeBe(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id="Be" min="0" max="1000" step="5" oninput="changeBe(this.value)"><br>
+                <input type ="radio" onclick=changeGen(this.value) name="Gender" value="F" checked>Female<input type="radio" onclick=changeGen(this.value) name="Gender" value="M">Male<br>
+                <label>Current Age:&nbsp;</label><input class="inpboxs" type="number" id="Agebox" min="18" max="99" value="45" oninput="changeAge(this.value)">
+                <input type="range" id="Age" min="18" max="99" value="45" oninput="changeAge(this.value)"><br>            
+                Pension: retire on <input class="aprbox" type="number" id="pctpen" min="0" max="200" value="75" oninput="changePctpen(this.value)"><span class="pct">%</span>
+                 of Employment Income = <input type="number" class="inpbox" id="Reqpenbox" oninput="changeReqPen(this.value)"><span class="poundl">&pound;</span>
+                 per month from age <input class="inpboxs" type="number" id="RetAgebox" min="50" max="99" value="60" oninput="changeRetAge(this.value)">
+                 until age <input class="inpboxs" id="Finagebox" type="number" value="99" oninput="changeFinage(this.value)"><br>
+                 <strong><span id="retagereport"></span></strong><br><br>
+                 <label>This means roughly a sum of:&nbsp;</label><input class="asstbox" type="text" id="Penlumpsumbox"> will be needed at retirement age.<br>
+                 <label> This requires roughly:&nbsp;</label><input class="asstbox" type="text" id="Penlstodshbox">&nbsp;if invested in shares<br>
+                 <label> or:&nbsp;</label><input class="asstbox" type="text" id="Penlstodcsbox">&nbsp;if invested in cash.<br>
+                 <label>Estd. Monthly Savings is:&nbsp;</label><input class="asstbox" type="text" id="Penmonsavbox">&nbsp;starting now and rising with inflation<br>
+                    </fieldset>
+                     </form>
+                    </div>
+                </div>
+                <!-- Items of expenditure on household bills etc. -->
+                 <div class="tab">
+                    <input type="radio" id="tab-3" name="tab-group-1">
+                    <label for="tab-3"><strong>&emsp;Expenditure&emsp;</strong></label>
+                     <div class="content">
+                <form>
+                    <h3>Carefully monitor your Expenditure</h3>
+                <ul>
+                    <li>If the interest rate on savings is lower than the interest rate on your mortgage/loans, consider paying those loans off</li>
+                    <li>Make sure you have the lowest possible APR on your mortgage for your Loan-to-Value; remortgage if necessary</li>
+                    <li>Always put your gas, electricity and broadband usage into a price comparison site to find the cheapest deal</li>
+                    <li>If your water usage is low, consider having a meter fitted</li>
+                </ul>
+                    <fieldset>
+                        <legend><strong>Input Monthly Expenditure</strong></legend>
+                        <strong>Total Monthly Expenditure: &pound;<span id="Tmsbox"></span></strong><br><br>
+                <input type=checkbox checked="checked" id="PayRent" onchange="changeRent(Rent.value)"><label>Rent:</label>
+                <input class="inpboxc" type="number" id="Rtbox" placeholder=" Rent" min="0" max="2000" oninput="changeRent(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id="Rent" min="0" max="2000" step="5" oninput="changeRent(this.value)"><br>
+                <input type=checkbox checked="checked" id="HaveMort" onchange="changeMort(Mort.value)"><label>Mortgage:</label>
+                <input class="inpboxc" type="number" id="Mgbox" min="0" max="2000" placeholder=" Mort" oninput="changeMort(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id="Mort" min="0" max="2000" step="5" oninput="changeMort(this.value)"><br>
+                <input type=checkbox checked="checked" id="HaveCar" onchange="changeCarc(Carc.value)"><label>Car: Monthly Total Costs:</label>
+                <input class="inpboxc" type="number" id="Carbox" min="0" max="1000" placeholder=" Car" oninput="changeCarc(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id="Carc" min="0" max="1000" step="5" oninput="changeCarc(this.value)"><br>
+                <input type=checkbox checked="checked" id="PayCT" onchange="changeCtax(Ctax.value)"><label>Council Tax:</label>
+                <input class="inpboxc" type="number" id="Ctbox" min="0" max="300" value="150" oninput="changeCtax(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id="Ctax" min="0" max="300" step="5" oninput="changeCtax(this.value)"><br>
+                <input type=checkbox checked="checked" id="PayIns" onchange="changeInsu(Insu.value)"><label>Buildings/Contents Insurance:</label>
+                <input class="inpboxc" type="number" id="Insbox" min="0" max="100" value="50" oninput="changeInsu(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id="Insu" min="0" max="100" step="5" oninput="changeInsu(this.value)"><br>
+                <input type="checkbox" checked="checked" id="PayFHH" onchange="changeFdhh(Fdhh.value)"><label>Food/Household Expenditure:</label>
+                <input class="inpboxc" type="number" id="Fhhbox" min="0" max="1000" value="200" oninput="changeFdhh(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id="Fdhh" min="0" max="1000" step="5" oninput="changeFdhh(this.value)"><br>
+                <input type="checkbox" checked="checked" id="PayGE" onchange="changeGasel(GasElec.value)"><label>Gas/Electric:</label>
+                <input class="inpboxc" type="number" id="Gebox" min="0" max="200" value="100" oninput="changeGasel(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id="GasElec" min="0" max="200" step="5" oninput="changeGasel(this.value)"><br>
+                <input type="checkbox" checked="checked" id="PayTel" onchange="changeTele(Telecoms.value)"><label>Telephone/Mob/Broadband:</label>
+                <input class="inpboxc" type="number" id="Telbox" min="0" max="150" value="75" oninput="changeTele(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id ="Telecoms" min="0" max="150" step="5" oninput="changeTele(this.value)"><br>
+                <input type="checkbox" checked="checked" id="PayWat" onchange="changeWat(Water.value)"><label>Water:</label>
+                <input class="inpboxc" type="number" id="Watbox" min="0" max="100" value="50" oninput="changeWat(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id ="Water" min="0" max="100" step="5" oninput="changeWat(this.value)"><br>
+                <input type="checkbox" checked="checked" id="PayCC" onchange="changeLoani(Loani.value)"><label>Loan/Credit Card Interest:</label>
+                <input class="inpboxc" type="number" id="Loanintbox" min="0" max="200" value="100" oninput="changeLoani(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id ="Loani" min="0" max="200" step="5" oninput="changeLoani(this.value)"><br>
+                <input type="checkbox" checked="checked" id="PayChar" onchange="changeDonations(Donations.value)"><label>Charitable Donations:</label>
+                <input class="inpboxc" type="number" id="Donationsbox" min="0" max="500" value="10" oninput="changeDonations(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id ="Donations" min="0" max="500" step="5" value="10" oninput="changeDonations(this.value)"><br>
+                <input type="checkbox" checked="checked" id="PayOth" onchange="changeOth(Other.value)"><label>Other:</label>            
+                <input class="inpboxc" type="number" id="Othbox" min="0" max="500" value="100" oninput="changeOth(this.value)"><span class="poundl">&pound;</span>
+                <input type="range" id ="Other" min="0" max="500" step="5" oninput="changeOth(this.value)"><br>                
+                    </fieldset>
+                </form>
+                    </div>
+                </div>
+                <!-- lists assets and borrowing together with interest rates and term -->         
+                <div class="tab">
+                    <input type="radio" id="tab-4" name="tab-group-1">
+                    <label for="tab-4"><strong>Saving &amp; Borrowing</strong></label>
+                <div class="content">
+                <form>
+                    <fieldset>
+                        <legend><strong>Input Savings and Borrowings</strong></legend>
+                        <strong>Total Assets: &pound;<span id="assetbox"></span></strong><br><br>
+                <input type="checkbox" checked="checked" id="haveHouse" onchange="changeHouse(House.value)"><label>Market Value of House:</label>
+                <input class="asstbox" type="text" id="Housebox" placeholder="   House value" pattern="[0-9]" oninput="changeHouse(this.value)"><span class="pound">&pound;</span>
+                <input type="range" id="House" min="0" max="999999" step="10000" value="50000" oninput="changeHouse(this.value)">
+                <strong><span class="intheadings">Int. Rate&emsp;&ensp;&ensp;Expiry&emsp;&ensp;Monthly Int.</span></strong><br>              
+                <input type="checkbox" checked="checked" id="haveMortgage" onchange="changeMortgage(Mortgage.value)"><label>Outstanding Mortgage:</label> 
+                <input class="asstboxc" type="text" id="Mortgagebox" placeholder="   Mortgage" pattern="[0-9]" oninput="changeMortgage(this.value)"><span class="pound">&pound;</span>
+                <input type="range" id="Mortgage" min="0" max="500000" step="10000" value="50000" oninput="changeMortgage(this.value)">
+                <input class="aprboxc" id="APRMort" type="number" min="0" max="10" step="0.1" oninput="calcmort()"><span class="pct">%</span>
+                <input type="date" class="dateinpc" id="datepickerMort"><span id="MortAmt"></span><br>
+                <form> Type:
+                    <input type="radio" name="Type" value="rep" checked>Repayment <input type="radio" name="Type" value="io"> Interest Only
+                </form><br>
+                <input type="checkbox" checked="checked" id="haveSloans" onchange="changeSloan(Sloan.value)"><label>Student loan(s):</label>
+                <input class="asstboxc" type="text" id="Sloanbox" placeholder="   Study Loans" pattern="[0-9]" oninput="changeSloan(this.value)"><span class="pound">&pound;</span>
+                <input type="range" id="Sloan" min="0" max="100000" step="1000" value="1000" oninput="changeSloan(this.value)"> &ensp;Repayment depends on Earnings. <br>             
+                <input type="checkbox" checked="checked" id="haveLoans" onchange="changeLoans(Loans.value)"><label>Other loans:</label>
+                <input class="asstboxc" type="text" id="Loanbox" placeholder="   Loans" pattern="[0-9]" oninput="changeLoans(this.value)"><span class="pound">&pound;</span>
+                <input type="range" id="Loans" min="0" max="100000" step="1000" value="1000" oninput="changeLoans(this.value)">               
+                <input class="aprboxc" id="APRLoan" type="number" min="0" max="30" step="0.1" oninput="calcloan()"><span class="pct">%</span>
+                <input type="date" class="dateinpc" id="datepickerLoan"><span id="LoanAmt"></span><br>
+                <input type="checkbox" id="haveCisa" onchange="changeCisa(Cisas.value)"><label>Cash ISAs:</label>
+                <input class="asstbox" type="text" id="Cisabox" placeholder="   Cash ISAs" pattern="[0-9]" oninput="changeCisa(this.value)"><span class="pound">&pound;</span>
+                <input type="range" id="Cisas" min="0" max="100000" step="1000" value="1000" oninput="changeCisa(this.value)">
+                <input class="aprbox" id="APRCisa" type="number" min="0" max="10" step="0.1" oninput="calcCisa()"><span class="pct">%</span>
+                <input type="date" class="dateinp" id="datepickerCisa"><span id="CisaAmt"></span><br>              
+                <input type="checkbox" id="haveCnisa" onchange="changeCnisa(Cnisas.value)"><label>Non-ISA Cash:</label>
+                <input class="asstbox" type="text" id="Cnisabox" placeholder="   Other Cash" pattern="[0-9]" oninput="changeCnisa(this.value)"><span class="pound">&pound;</span>
+                <input type="range" id="Cnisas" min="0" max="100000" step="1000" value="1000" oninput="changeCnisa(this.value)">
+                <input class="aprbox" id="APRCnisa" type="number" min="0" max="10" step="0.1" oninput="calcCnisa()"><span class="pct">%</span>
+                <input type="date" class="dateinp" id="datepickerCnisa"><span id="CnisaAmt"></span><br>                
+                <input type="checkbox" id="haveSisa" onchange="changeSisa(Sisas.value)"><label>Stocks and Shares ISAs:</label>
+                <input class="asstbox" type="text" id="Sisabox" placeholder="   S&S ISAs" pattern="[0-9]" oninput="changeSisa(this.value)"><span class="pound">&pound;</span>
+                <input type="range" id="Sisas" min="0" max="100000" step="1000" value="1000" oninput="changeSisa(this.value)"> &ensp;Assume typical yield of 2%:
+                <span id="SsisaAmt"></span><br>    
+                <input type="checkbox" id="haveSipp" onchange="changeSipp(Sipp.value)"><label>DC Pensions/SIPPs etc:</label>
+                <input class="asstbox" type="text" id="Sippbox" placeholder="   Pensions" pattern="[0-9]" oninput="changeSipp(this.value)"><span class="pound">&pound;</span>
+                <input type="range" id="Sipp" min="0" max="500000" step="5000" value="5000" oninput="changeSipp(this.value)"> &ensp;Assume typical yield of 2%:
+                <span id="SippAmt"></span><br>
+                <input type="checkbox" id="haveShares"   onchange="changeShares(Shares.value)"><label>Shares/Unit Trusts etc:</label>
+                <input class="asstbox" type="text" id="Sharebox" placeholder="   Shares" pattern="[0-9]" oninput="changeShares(this.value)"><span class="pound">&pound;</span>
+                <input type="range" id="Shares" min="0" max="500000" step="5000" value="1000" oninput="changeShares(this.value)"> &ensp;Assume typical yield of 2%:
+                <span id="ShareAmt"></span><br><br>
+                <span id="TotIntbox" class="totinterest"></span>             
+                    </fieldset>
+                </form>
+                <span id="messasst"></span>
+                </div>
+            </div>
+            <!-- Section that displays graphical representation of current situation --> 
+            </div>
+            <section class="gsect">
+                <p><strong>&nbsp;Graph</strong></p>
+            <canvas class="graphs" id="finCanvas" width="500" height="250">
+            </canvas>
+            </section>
+            <section class="balancemess">
+                <fieldset>
+                <legend><strong>Statement</strong></legend>
+                    <p>Monthly Income is &pound;<span id="micbox"></span><br>
+                    Monthly Expendure is &pound;<span id="mexbox"></span><br>
+                    <strong>Your Monthly Balance is: &pound;<span id="Balbox"></span>
+                    <span id="Warnbox"></span></strong> 
+                    </p>
+                </fieldset>
+            </section>
+            <!-- Section that determines asset allocation based on risk profile-->
+<section class="allocation">
+    <form>
+        <fieldset>
+            <legend><strong>Select Your Attitude to Investment Risk</strong></legend>
+            <select class="riskbox" name="risk" oninput="riskalloc(this.value)">
+                <option value="0" selected>Select Risk</option>
+                <option value="1">No Risk</option>
+                <option value="2">Low Risk</option>
+                <option value="3">Low/Med Risk</option>
+                <option value="4">Med Risk</option>
+                <option value="5">Med/High Risk</option>
+                <option value="6">High Risk</option>
+            </select><br> Recommended Saving Allocation is in the following proportions: <br><i><strong><span id="allocbox"></span></strong></i>
+        </fieldset>
+    </form>
+</section>
+    <script type="text/javascript" src="js/dinoscript.js"></script>
+</main>
+    <footer>
+            <hr>
+            <sub>&nbsp;&nbsp;&nbsp;&nbsp;Users of this site do so at their own risk with no liability borne by Dino D'Sa<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&copy; Dino D'Sa MMXVII<br>
+    </footer>
+</body>  
+</html>
