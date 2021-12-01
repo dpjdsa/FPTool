@@ -35,14 +35,16 @@ fieldset {
     border-radius: 10px;
 }
 .pound {
+    font-size: 100%;
     position:relative;
     top: 1px;
-    left: -82px;
+    left: -100px;
 }
 .poundl {
+    font-size: 100%;
     position:relative;
     top: 1px;
-    left: -57px;
+    left: -65px;
 }
 .tabs{
     position:relative;
@@ -118,7 +120,7 @@ fieldset>label{
     font-size:1em;
     left: 0px;
     height: 20px;
-    width: 45px;
+    width: 55px;
     padding-left: 10px;
 }
 .inpboxc {
@@ -130,7 +132,7 @@ fieldset>label{
     font-size:1em;
     left: 0px;
     height:20px;
-    width: 45px;
+    width: 55px;
     padding-left:10px;
 }
 .inpboxs {
@@ -142,7 +144,7 @@ fieldset>label{
     font-size: 1em;
     left: 0px;
     height: 20px;
-    width: 30px;
+    width: 35px;
     padding-left:5px;
 }
 .inpbox:hover,.inpbox:focus, .inpboxc:hover,.inpboxc:focus , aprboxc:hover, aprboxc:focus,
@@ -161,7 +163,7 @@ fieldset>label{
     border-radius: 5px;
     left: 10px;
     height: 20px;
-    width: 50px;
+    width: 60px;
     padding-left: 10px;
 }
 .aprbox {
@@ -173,7 +175,7 @@ fieldset>label{
     border-radius: 5px;
     left: 10px;
     height: 20px;
-    width: 50px;
+    width: 60px;
     padding-left: 10px;
 }
 .dateinp {
@@ -233,7 +235,7 @@ fieldset>label{
     font-size: 1em;
     left: 0px;
     height: 20px;
-    width: 80px;
+    width: 100px;
     padding-left:-2px;
 }
 .asstboxc {
@@ -245,7 +247,7 @@ fieldset>label{
     font-size: 1em;
     left: 0px;
     height: 20px;
-    width: 80px;
+    width: 100px;
     padding-left:-2px;
 }
 .intheadings {
