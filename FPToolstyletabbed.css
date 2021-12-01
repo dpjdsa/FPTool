@@ -1,6 +1,7 @@
 
 header{
     background-color:#f6e9d8;
+    font-size:large;
     color:#000000;
     overflow:auto;
     width:100%;
@@ -14,12 +15,14 @@ footer{
 }
 body{
     font-family: "News Cycle";
+    font-size:large;
     color: #635959;
     background-color:#f6e9d8;
     overflow:auto;
     width:100%;
 }
 h2{
+    font-size:large;
     text-transform: uppercase;
     text-shadow: 2px 2px 3px #999999;
 }
