@@ -15,22 +15,20 @@ footer{
 }
 body{
     font-family: "News Cycle";
-    font-size:large;
+    font-size:20px;
     color: #635959;
     background-color:#f6e9d8;
     overflow:auto;
     width:100%;
 }
 h2{
-    font-size:large;
+    font-size:30px;
     text-transform: uppercase;
     text-shadow: 2px 2px 3px #999999;
 }
 h3,h4 {
+    font-size:25px;
     color:#8C1018;
-}
-h3{
-    font-size: 1em;
 }
 fieldset {
     border: 1px solid #999;
@@ -56,7 +54,7 @@ fieldset {
 }
 .tab{
     float:left;
-    height:520px;
+    height:700px;
 }
 .tab>label{
   background: #f6e9d8; 
@@ -80,8 +78,8 @@ fieldset {
   background:#f6e9d8;
   right: 0;
   bottom: 0;
-  height: 480px;
-  width: 780px;
+  height: 750px;
+  width: 860px;
   padding: 20px;
   border: 1px solid #999;
   border-top-right-radius: 10px;
